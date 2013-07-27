@@ -13,20 +13,14 @@ $(document).ready(function() {
 	$(document).on("keyup", "textarea", function(e) {
 		if (e.keyCode == 13 && e.shiftKey) {
 			this.value = "";
-            e.preventDefault();
-			if (isCommand(input)) {
-				parse(this, input.slice(1), this.className);
-			}
+         e.preventDefault();
+			parse(this, input, this.className);
 			input = "";
 		} else{
 			input = this.value;
 		}
 	});
 });
-
-function isCommand(text) {
-	return text[0] === '/' && text.length > 1;
-}
 
 function isChatBox(className) {
 	return true;
