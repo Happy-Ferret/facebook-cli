@@ -1,4 +1,11 @@
 var input = "";
+var token = "";
+
+chrome.runtime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		token = request.token;
+		console.log(token);
+	});
 
 $(document).ready(function() {
 
