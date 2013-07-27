@@ -68,7 +68,7 @@ function parse(elem, command, className) {
 			changeDirectory("news");
 			return;
 		case "whoami":
-			whoami();
+			whoami(elem);
 			return;
 	   }
 	}
@@ -123,8 +123,17 @@ function changeDirectory(directory) {
 	window.location.href = redirect_url;
 }
 
-function whoami() {
-	
+function whoami(elem) {
+	var url = $("#pageNav > #navTimeline > a").attr("href");
+	var split_url = url.split('/');
+	var user_id = split_url[3];
+	var match = $(".conversation");
+	console.log(match);
+	var $add = '<div class="mhs mbs pts fbChatConvItem _50dw clearfix small _50kd"><div class="_50ke"><div class="_50x5"></div></div><div class="messages"><div class="metaInfoContainer fss fcg"><span class="hidden_elem"><a href="#" rel="dialog" role="button"><span class="fcg">Report</span></a> · </span><span class="timestamp"></span></div><div class="_kso fsm direction_ltr _55r0" data-jsid="message" style="max-width: 188px;"><span data-measureme="1"><span id = "whoyouare"></span></span></div></div></div>'
+	match.append($add);
+	$("#whoyouare").append(user_id);
+	$("#whoyouare").attr("id", "old");
+	//$('.fbNubFlyoutBody scrollable').scrollTop($('.fbNubFlyoutBody scrollable')[0].scrollHeight);
 }
 
 function post(status) {
