@@ -27,13 +27,14 @@ function isChatBox(className) {
 }
 
 function parse(elem, command, className) {
-	console.log(command);
-	console.log(className);
-
 	var i = command.indexOf(' ');
-	var split = [command.slice(0, i), command.slice(i+1)];
-	command = split[0];
-	var arg1 = split[1];
+	if (i != -1) {
+		var split = [command.slice(0, i), command.slice(i+1)];
+		command = split[0];
+		var arg1 = split[1];
+	}
+	console.log(command);
+	console.log(arg1);
 
 	if (isChatBox(className)) {
 		switch (command) {
@@ -133,6 +134,7 @@ function whoami(elem) {
 	match.append($add);
 	$("#whoyouare").append(user_id);
 	$("#whoyouare").attr("id", "old");
+	$('.fbNubFlyoutBody.scrollable').scrollTop(100000);
 }
 
 function post(status) {
