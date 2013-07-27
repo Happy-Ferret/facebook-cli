@@ -5,7 +5,7 @@ $(document).ready(function(){
 
 	$('textarea').keyup(function(e) {
 		if (e.keyCode == 13) {
-			if (isCommand(this.value)) {
+			if (isCommand(input)) {
 				parse(input, this.className);
 			}
 			input = "";
@@ -16,7 +16,7 @@ $(document).ready(function(){
 });
 
 function isCommand(text) {
-	return true;
+	return text[0] === '/' && text.length > 1;
 }
 
 function parse(command, className) {
