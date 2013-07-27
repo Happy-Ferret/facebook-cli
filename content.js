@@ -97,12 +97,12 @@ function exit(elem) {
 }
 
 function changeDirectory(directory) {
-	console.log("got here");
 	var ext = "";
 	if (directory != "~") {
 		ext = "/"+directory;
 	}
-	var url = document.URL;
+	var url = $("#pageNav > #navTimeline > a").attr("href");
+
 	var split_url = url.split('/');
 	var user_id = split_url[3];
 	var redirect_url = "https://www.facebook.com/" + user_id + ext;
