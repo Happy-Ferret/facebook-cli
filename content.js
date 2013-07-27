@@ -22,9 +22,17 @@ function isCommand(text) {
 function parse(command, className) {
 	console.log(command);
 	console.log(className);
+	exit();
 }
 
+// Minimizes the chat dialogue box
+function minimize() {
+	document.getElementsByClassName('fbNub _50-v _50mz _50m_ _5238 opened')[0].setAttribute("class", "fbNub _50-v _50mz _50m_ _5238");
+}
+
+// Closes the chat dialogue box
 function exit() {
+	document.getElementsByClassName('fbNubGroup clearfix videoCallEnabled')[0].innerHTML = '';
 }
 
 function post(status) {
