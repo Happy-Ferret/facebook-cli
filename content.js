@@ -2,10 +2,10 @@ var input = "";
 
 $(document).ready(function() {
 	console.log("Document ready");
-	$('textarea').keyup(function(e) {
+	$(document).on("keyup", "textarea", function(e) {
 		if (e.keyCode == 13) {
 			if (isCommand(input)) {
-				parse(input.slice(1), this.className);
+				parse(this, input.slice(1), this.className);
 			}
 			input = "";
 		} else{
@@ -22,7 +22,7 @@ function isChatBox(className) {
 	return true;
 }
 
-function parse(command, className) {
+function parse(elem, command, className) {
 	console.log(command);
 	console.log(className);
 	command = command.toLowerCase();
@@ -30,10 +30,10 @@ function parse(command, className) {
 	if (isChatBox(className)) {
 		switch (command) {
 		case "min":
-			minimize();
+			minimize(elem);
 			return;
 		case "exit":
-			exit();
+			exit(elem);
 			return;
 		case "n":
 			nextChat();
@@ -71,12 +71,13 @@ function parse(command, className) {
 }
 
 // Minimizes the chat dialogue box
-function minimize() {
-	$('.fbNub').removeClass('opened focusedTab');
+function minimize(elem) {
+	var closest = $(elem).closest('.fbNub');
+	closest.removeClass('opened focusedTab');
 }
 
 // Closes the chat dialogue box
-function exit() {
+function exit(elem) {
 	$('.close.button')[0].click();
 }
 
