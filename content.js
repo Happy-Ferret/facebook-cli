@@ -1,5 +1,9 @@
 var input = "";
 var token = "";
+var history = new Array();
+history[0] = "";
+var index = 0;
+var indexHigh = 0;
 
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
@@ -8,17 +12,30 @@ chrome.runtime.onMessage.addListener(
 	});
 
 $(document).ready(function() {
-
 	console.log("Document ready");
 	$(document).on("keyup", "textarea", function(e) {
 		if (e.keyCode == 13 && e.shiftKey) {
 			this.value = "";
          e.preventDefault();
 			parse(this, input, this.className);
+			history.unshift(input);
 			input = "";
+			if(history.length > 15){
+				history.pop();
+			} else indexHigh++;
+			index = 0;
+			history[0] = "";
+		} else if(e.keyCode == 38){ //UP
+			if((index < indexHigh) && (index < 14)) index++;
+		} else if(e.keyCode == 40){ //DOWN
+			if(index > 0) index--;
 		} else{
 			input = this.value;
+			history[0] = input;
+			index = 0;
 		}
+
+		this.value = history[index];
 	});
 });
 
