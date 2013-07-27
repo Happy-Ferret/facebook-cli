@@ -1,9 +1,12 @@
 var input = "";
 
 $(document).ready(function() {
+
 	console.log("Document ready");
 	$(document).on("keyup", "textarea", function(e) {
-		if (e.keyCode == 13) {
+		if (e.keyCode == 13 && e.shiftKey) {
+			this.value = "";
+            e.preventDefault();
 			if (isCommand(input)) {
 				parse(this, input.slice(1), this.className);
 			}
