@@ -75,7 +75,7 @@ function minimize() {
 
 // Closes the chat dialogue box
 function exit() {
-	document.getElementsByClassName('fbNubGroup clearfix videoCallEnabled')[0].innerHTML = '';
+	document.getElementsByClassName('fbNubGroup clearfix')[0].innerHTML = '';
 }
 
 function post(status) {
