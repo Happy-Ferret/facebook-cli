@@ -59,6 +59,12 @@ function parse(elem, command, className) {
 		case "cd ~":
 			changeDirectory("~");
 			return;
+		case "cd news":
+			changeDirectory("news");
+			return;
+		case "whoami":
+			whoami();
+			return;
 	   }
 	}
 
@@ -97,6 +103,10 @@ function exit(elem) {
 }
 
 function changeDirectory(directory) {
+	if (directory == "news") {
+		window.location.href = "https://www.facebook.com/";
+		return;
+	}
 	var ext = "";
 	if (directory != "~") {
 		ext = "/"+directory;
@@ -107,6 +117,10 @@ function changeDirectory(directory) {
 	var user_id = split_url[3];
 	var redirect_url = "https://www.facebook.com/" + user_id + ext;
 	window.location.href = redirect_url;
+}
+
+function whoami() {
+	
 }
 
 function post(status) {
