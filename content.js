@@ -41,10 +41,22 @@ function parse(elem, command, className) {
 		case "p":
 			prevChat();
 			return;
-		case "cd":
-			changeDirectory();
+		case "cd about":
+			changeDirectory("about");
 			return;
-		}
+		case "cd photos":
+			changeDirectory("photos");
+			return;
+		case "cd friends":
+			changeDirectory("friends");
+			return;
+		case "cd following":
+			changeDirectory("likes");
+			return;
+		case "cd ~":
+			changeDirectory("~");
+			return;
+	   }
 	}
 
 	var arg1 = command.split(" ", 1)[1];
@@ -81,13 +93,16 @@ function exit(elem) {
 	$('.close.button')[0].click();
 }
 
-
-
-function changeDirectory() {
+function changeDirectory(directory) {
+	console.log("got here");
+	var ext = "";
+	if (directory != "~") {
+		ext = "/"+directory;
+	}
 	var url = document.URL;
 	var split_url = url.split('/');
 	var user_id = split_url[3];
-	var redirect_url = "https://www.facebook.com/" + user_id + "/about";
+	var redirect_url = "https://www.facebook.com/" + user_id + ext;
 	window.location.href = redirect_url;
 }
 
