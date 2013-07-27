@@ -77,7 +77,7 @@ function minimize() {
 
 // Closes the chat dialogue box
 function exit() {
-	document.getElementsByClassName('fbNubGroup clearfix')[0].innerHTML = '';
+	$('.close.button')[0].click();
 }
 
 
