@@ -8,13 +8,13 @@ Control your Facebook page using commands in any input box.
 Input Box Commands
 ------------------
 /exit                - Exit chat box
-/post [status]       - Post status
 /n                   - Move to next chat box
 /p                   - Move to previous chat box
 
 
 Global Commands
 ---------------
+/post [status]       - Post status
 /openchat [name]     - Open a chat box with the specified user
 /openprofile         - Open the profile of the specified user
 /profile             - Open your own profile
