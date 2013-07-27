@@ -67,23 +67,8 @@ function parse(elem, command, className) {
 		case "p":
 			prevChat();
 			return;
-		case "cd about":
-			changeDirectory("about");
-			return;
-		case "cd photos":
-			changeDirectory("photos");
-			return;
-		case "cd friends":
-			changeDirectory("friends");
-			return;
-		case "cd following":
-			changeDirectory("likes");
-			return;
-		case "cd ~":
-			changeDirectory("~");
-			return;
-		case "cd news":
-			changeDirectory("news");
+		case "cd":
+			changeDirectory(arg1);
 			return;
 		case "whoami":
 			whoami(elem);
