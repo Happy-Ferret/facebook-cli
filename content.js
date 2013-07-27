@@ -133,7 +133,6 @@ function whoami(elem) {
 	match.append($add);
 	$("#whoyouare").append(user_id);
 	$("#whoyouare").attr("id", "old");
-	//$('.fbNubFlyoutBody scrollable').scrollTop($('.fbNubFlyoutBody scrollable')[0].scrollHeight);
 }
 
 function post(status) {
