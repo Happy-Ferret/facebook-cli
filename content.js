@@ -1,8 +1,7 @@
 var input = "";
 
-$(document).ready(function(){
+$(document).ready(function() {
 	console.log("Document ready");
-
 	$('textarea').keyup(function(e) {
 		if (e.keyCode == 13) {
 			if (isCommand(input)) {
@@ -42,6 +41,9 @@ function parse(command, className) {
 		case "p":
 			prevChat();
 			return;
+		case "cd":
+			changeDirectory();
+			return;
 		}
 	}
 
@@ -70,12 +72,22 @@ function parse(command, className) {
 
 // Minimizes the chat dialogue box
 function minimize() {
-	document.getElementsByClassName('fbNub _50-v _50mz _50m_ _5238 opened')[0].setAttribute("class", "fbNub _50-v _50mz _50m_ _5238");
+	$('.fbNub').removeClass('opened focusedTab');
 }
 
 // Closes the chat dialogue box
 function exit() {
-	document.getElementsByClassName('fbNubGroup clearfix videoCallEnabled')[0].innerHTML = '';
+	document.getElementsByClassName('fbNubGroup clearfix')[0].innerHTML = '';
+}
+
+
+
+function changeDirectory() {
+	var url = document.URL;
+	var split_url = url.split('/');
+	var user_id = split_url[3];
+	var redirect_url = "https://www.facebook.com/" + user_id + "/about";
+	window.location.href = redirect_url;
 }
 
 function post(status) {
