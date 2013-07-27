@@ -29,7 +29,11 @@ function isChatBox(className) {
 function parse(elem, command, className) {
 	console.log(command);
 	console.log(className);
-	command = command.toLowerCase();
+
+	var i = command.indexOf(' ');
+	var split = [command.slice(0, i), command.slice(i+1)];
+	command = split[0];
+	var arg1 = split[1];
 
 	if (isChatBox(className)) {
 		switch (command) {
@@ -69,7 +73,6 @@ function parse(elem, command, className) {
 	   }
 	}
 
-	var arg1 = command.split(" ", 1)[1];
 	switch (command) {
 	case "post":
 		post(arg1);
@@ -125,6 +128,16 @@ function whoami() {
 }
 
 function post(status) {
+	var url = "https://graph.facebook.com/me/feed?message=" + status;
+	console.log(url);
+	$.ajax(
+	{
+		type: 'POST',		
+		url: url,
+		data: {access_token: token},
+		success: function (data) { console.log("success:"); console.log(data); },
+		error: function (data) { console.log("error"); }
+	});
 }
 
 function nextChat() {
