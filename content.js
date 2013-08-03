@@ -16,7 +16,7 @@ $(document).ready(function() {
 	$(document).on("keyup", "textarea", function(e) {
 		if (e.keyCode == 13 && e.shiftKey) {
 			this.value = "";
-         e.preventDefault();
+            e.preventDefault();
 			parse(this, input, this.className);
 			history.unshift(input);
 			input = "";
@@ -44,14 +44,15 @@ function isChatBox(className) {
 }
 
 function parse(elem, command, className) {
-	var i = command.indexOf(' ');
-	if (i != -1) {
-		var split = [command.slice(0, i), command.slice(i+1)];
-		command = split[0];
-		var arg1 = split[1];
+	var split_command = command.split(" ");
+	console.log(split_command);
+	var command = split_command[0]
+	if (split_command.length >= 2) {
+		var arg1 = split_command[1]
 	}
-	console.log(command);
-	console.log(arg1);
+	if (split_command.length == 3) {
+		var arg2 = split_command[2]
+	}
 
 	if (isChatBox(className)) {
 		switch (command) {
@@ -80,8 +81,8 @@ function parse(elem, command, className) {
 	case "post":
 		post(arg1);
 		break;
-	case "openchat":
-		openChat(arg1);
+	case "chat":
+		chat(arg1, arg2);
 		break;
 	case "openprofile":
 		openProfile(arg1);
@@ -158,7 +159,16 @@ function nextChat() {
 function prevChat() {
 }
 
-function openChat(userName) {
+function chat(firstname, lastname) {
+	var username = firstname + " " + lastname;
+	var elem = $("._42fz a .clearfix ._52zl:contains('"+username+"')");
+	console.log(elem);
+	if (elem.length == 0) {
+	  console.log("This user is not online");
+	}
+	else {
+	  elem.parent().parent().parent().parent().click();
+	}
 }
 
 function openProfile() {
