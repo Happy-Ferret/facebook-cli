@@ -95,7 +95,8 @@ function parse(elem, command, className) {
 		break;
 	default:
 		// TODO Display error to user
-		console.log("Command not recognized");
+		console.log("Command not found");
+		printToTerminal("Command not found");
 	}
 }
 
@@ -132,11 +133,20 @@ function whoami(elem) {
 	var split_url = url.split('/');
 	var user_id = split_url[3];
 	var match = $(".conversation");
-	console.log(match);
 	var $add = '<div class="mhs mbs pts fbChatConvItem _50dw clearfix small _50kd"><div class="_50ke"><div class="_50x5"></div></div><div class="messages"><div class="metaInfoContainer fss fcg"><span class="hidden_elem"><a href="#" rel="dialog" role="button"><span class="fcg">Report</span></a> · </span><span class="timestamp"></span></div><div class="_kso fsm direction_ltr _55r0" data-jsid="message" style="max-width: 188px;"><span data-measureme="1"><span id = "whoyouare"></span></span></div></div></div>'
 	match.append($add);
 	$("#whoyouare").append(user_id);
 	$("#whoyouare").attr("id", "old");
+	$('.fbNubFlyoutBody.scrollable').scrollTop(100000);
+}
+
+function printToTerminal(message) { //Prints a message to the chat window
+	console.log(message);
+	var match = $(".conversation");
+	var $add = '<div class="mhs mbs pts fbChatConvItem _50dw clearfix small _50kd"><div class="_50ke"><div class="_50x5"></div></div><div class="messages"><div class="metaInfoContainer fss fcg"><span class="hidden_elem"><a href="#" rel="dialog" role="button"><span class="fcg">Report</span></a> · </span><span class="timestamp"></span></div><div class="_kso fsm direction_ltr _55r0" data-jsid="message" style="max-width: 188px;"><span data-measureme="1"><span id = "customMessage"></span></span></div></div></div>'
+	match.append($add);
+	$("#customMessage").append(message)
+	$("#customMessage").attr("id", "oldMessage");
 	$('.fbNubFlyoutBody.scrollable').scrollTop(100000);
 }
 
@@ -165,6 +175,7 @@ function chat(firstname, lastname) {
 	console.log(elem);
 	if (elem.length == 0) {
 	  console.log("This user is not online");
+	  printToTerminal("This user is offline");
 	}
 	else {
 	  elem.parent().parent().parent().parent().click();
