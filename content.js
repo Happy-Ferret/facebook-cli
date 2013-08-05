@@ -1,5 +1,11 @@
 var token = "";
 
+var KEY_CODE_UP = 38;
+var KEY_CODE_DOWN = 40;
+var KEY_CODE_ENTER = 13;
+
+var HISTORY_SIZE = 15;
+
 // Listen for FB API auth token
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
@@ -18,22 +24,28 @@ $(document).ready(function() {
 
 	// Hijack all textareas
 	$(document).on("keyup", "textarea", function(e) {
-		if (e.keyCode == 13 && e.shiftKey) {
+		if (e.keyCode == KEY_CODE_ENTER && e.shiftKey) {
 			this.value = "";
             e.preventDefault();
 			parse(this, input, this.className);
 			history.unshift(input);
 			input = "";
-			if(history.length > 15){
+			if(history.length > HISTORY_SIZE) {
 				history.pop();
-			} else indexHigh++;
+			} else {
+				indexHigh++;
+			}
 			index = 0;
 			history[0] = "";
-		} else if(e.keyCode == 38){ //UP
-			if((index < indexHigh) && (index < 14)) index++;
-		} else if(e.keyCode == 40){ //DOWN
-			if(index > 0) index--;
-		} else{
+		} else if(e.keyCode == KEY_CODE_UP) {
+			if((index < indexHigh) && (index < HISTORY_SIZE - 1)) {
+				index++;
+			}
+		} else if(e.keyCode == KEY_CODE_DOWN) {
+			if(index > 0) {
+				index--;
+			}
+		} else {
 			input = this.value;
 			history[0] = input;
 			index = 0;
@@ -101,8 +113,8 @@ function executeCommand(elem, commandName, args, className) {
 	case "cd":
         cd(elem, args);
         break;
-	case "search":
-		search(elem, args);
+	case "grep":
+		grep(elem, args);
 		break;
 	default:
 		// TODO Alert if no chat window
@@ -212,6 +224,6 @@ function chat(elem, args) {
 	}
 }
 
-function search(elem, args) {
+function grep(elem, args) {
 	// TODO
 }
