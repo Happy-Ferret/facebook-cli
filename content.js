@@ -16,42 +16,62 @@ chrome.runtime.onMessage.addListener(
 $(document).ready(function() {
 	console.log("Document ready");
 
-	var input = "";
 	var index = 0;
-	var indexHigh = 0;
+	var commandsInHistory = 0;
 	var history = new Array();
 	history[0] = "";
 
 	// Hijack all textareas
 	$(document).on("keyup", "textarea", function(e) {
 		if (e.keyCode == KEY_CODE_ENTER && e.shiftKey) {
-			this.value = "";
-            e.preventDefault();
+			var input = this.value.trim();
+
+			// Execute the command
 			parse(this, input, this.className);
-			history.unshift(input);
-			input = "";
-			if(history.length > HISTORY_SIZE) {
+
+			/*
+			 * Add the command to the beginning of the history, and add a new
+			 * blank command to the history.
+			 */
+			history[0] = input;
+			history.unshift("");
+
+			/*
+			 * If we have reached the max history size, pop the last command
+			 * from the history. Otherwise, increase the commandsInHistory count
+			 * by one.
+			 */
+			if (history.length > HISTORY_SIZE) {
 				history.pop();
 			} else {
-				indexHigh++;
+				commandsInHistory++;
 			}
+
+			// Set the history to the first command
 			index = 0;
-			history[0] = "";
-		} else if(e.keyCode == KEY_CODE_UP) {
-			if((index < indexHigh) && (index < HISTORY_SIZE - 1)) {
+
+			// Remove the command from the input box
+			this.value = "";
+		} else if (e.keyCode == KEY_CODE_UP) {
+			if ((index < commandsInHistory) && (index < HISTORY_SIZE - 1)) {
 				index++;
 			}
-		} else if(e.keyCode == KEY_CODE_DOWN) {
-			if(index > 0) {
+			// Set the value of the input box to the current history entry
+			this.value = history[index];
+		} else if (e.keyCode == KEY_CODE_DOWN) {
+			if (index > 0) {
 				index--;
 			}
+			// Set the value of the input box to the current history entry
+			this.value = history[index];
 		} else {
-			input = this.value;
-			history[0] = input;
+			/*
+			 * The user is typing, so set the first history entry to the
+			 * command they're typing.
+			 */
 			index = 0;
+			history[0] = this.value.trim();
 		}
-
-		this.value = history[index];
 	});
 });
 
