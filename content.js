@@ -1,9 +1,7 @@
 var token = "";
-
 var KEY_CODE_UP = 38;
 var KEY_CODE_DOWN = 40;
 var KEY_CODE_ENTER = 13;
-
 var HISTORY_SIZE = 15;
 
 // Listen for FB API auth token
@@ -15,11 +13,9 @@ chrome.runtime.onMessage.addListener(
 
 $(document).ready(function() {
 	console.log("Document ready");
-
 	var index = 0;
 	var history = loadHistory();
 	var commandsInHistory = history.length;
-
 	// Hijack all textareas
 	$(document).on("keyup", "textarea", function(e) {
 		if (e.keyCode == KEY_CODE_ENTER && e.shiftKey) {
@@ -115,7 +111,6 @@ function parse(elem, command, className) {
 	}
 	console.log(commandName);
 	console.log(args);
-
 	executeCommand(elem, commandName, args, className);
 }
 
@@ -161,7 +156,6 @@ function executeCommand(elem, commandName, args, className) {
 		break;
 	default:
 		// TODO Alert if no chat window
-		console.log("Terminal not found");
 		printToTerminal("Command not found");
 	}
 }
@@ -180,7 +174,6 @@ function isChatBox(className) {
  * @param  {String} message The message to print
  */
 function printToTerminal(message) {
-	console.log(message);
 	var match = $(".conversation");
 	var $add = '<div class="mhs mbs pts fbChatConvItem _50dw clearfix small _50kd"><div class="_50ke"><div class="_50x5"></div></div><div class="messages"><div class="metaInfoContainer fss fcg"><span class="hidden_elem"><a href="#" rel="dialog" role="button"><span class="fcg">Report</span></a> · </span><span class="timestamp"></span></div><div class="_kso fsm direction_ltr _55r0" data-jsid="message" style="max-width: 188px;"><span data-measureme="1"><span id = "customMessage"></span></span></div></div></div>'
 	match.append($add);
@@ -216,7 +209,6 @@ function cd(elem, args) {
 		ext = "/"+directory;
 	}
 	var url = $("#pageNav > #navTimeline > a").attr("href");
-
 	var split_url = url.split('/');
 	var user_id = split_url[3];
 	var redirect_url = "https://www.facebook.com/" + user_id + ext;
@@ -237,9 +229,7 @@ function whoAmI(elem, args) {
 
 function post(elem, args) {
 	status = args;
-
 	var url = "https://graph.facebook.com/me/feed?message=" + status;
-	console.log(url);
 	$.ajax(
 	{
 		type: 'POST',
@@ -254,12 +244,9 @@ function chat(elem, args) {
 	args = args.split(" ");
 	firstname = args[0];
 	lastname = args[1];
-
 	var username = firstname + " " + lastname;
-	var elem = $("._42fz a .clearfix ._52zl:contains('"+username+"')");
-	console.log(elem);
+	var elem = $(".-cx-PRIVATE-fbChatOrderedList__name:contains('"+username+"')");
 	if (elem.length == 0) {
-	  console.log("This user is not online");
 	  printToTerminal("This user is offline");
 	}
 	else {
