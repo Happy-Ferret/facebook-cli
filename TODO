@@ -1,0 +1,14 @@
+Before release:
+
+1. SSH to friends page
+2. Convert printToTerminal to handle the chat page as well as the chat box
+3. Display an alert when we need to use printToTerminal but the user isn't in
+   a chat window or page and we can't display any feedback.
+3. Switch to next open chat box on minimize/exit
+4. Reliable authentication for posting
+
+Backlog:
+
+1. Handle friend name collisions
+2. Options page (for things like history size)
+3. Autocomplete

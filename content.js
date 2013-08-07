@@ -138,7 +138,7 @@ function executeCommand(elem, commandName, args, className) {
 		break;
 	default:
 		// TODO Alert if no chat window
-		console.log("Terminal not found");
+		console.log("Command not found");
 		printToTerminal("Command not found");
 	}
 }
@@ -233,10 +233,9 @@ function chat(elem, args) {
 	lastname = args[1];
 
 	var username = firstname + " " + lastname;
-	var elem = $("._42fz a .clearfix ._52zl:contains('"+username+"')");
-	console.log(elem);
+	var elem = $(".-cx-PRIVATE-fbChatOrderedList__name:contains('"+username+"')");
 	if (elem.length == 0) {
-	  console.log("This user is not online");
+	  console.log("This user is offline");
 	  printToTerminal("This user is offline");
 	}
 	else {
